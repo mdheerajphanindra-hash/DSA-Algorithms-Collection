@@ -1,16 +1,11 @@
-/*Converting recursive programs to non-recursive programs. Towers
-of Hanoi Problem example.*/
+#include <iostream>
+#include <cmath>
+using namespace std;
 
-
-
-//Hanoi Problem
-#include <stdio.h>
-#include <math.h>
-
-typedef struct {
+struct Stack {
     int items[64];
     int top;
-} Stack;
+};
 
 void push(Stack* s, int item) {
     s->top++;
@@ -24,7 +19,7 @@ int pop(Stack* s) {
 }
 
 void moveDisk(char from, char to, int disk) {
-    printf("Move disk %d from %c to %c\n", disk, from, to);
+    cout << disk << " " << from << " " << to << endl;
 }
 
 void moveDisksBetweenPoles(Stack* from, Stack* to, char f, char t) {
@@ -73,19 +68,16 @@ void iterativeHanoi(int num_disks, char initial_peg, char destination_peg, char 
             moveDisksBetweenPoles(&initial, &destination, initial_peg, destination_peg);
         else if (i % 3 == 2)
             moveDisksBetweenPoles(&initial, &intermediate, initial_peg, intermediate_peg);
-        else if (i % 3 == 0)
+        else
             moveDisksBetweenPoles(&intermediate, &destination, intermediate_peg, destination_peg);
     }
 }
 
 int main() {
     int n;
+    cin >> n;
 
-    printf("Enter the number of disks: ");
-    scanf("%d", &n);
-
-    printf("\nIterative Tower of Hanoi:\n");
-    iterativeHanoi(n, 'I', 'D', 'M');
+    iterativeHanoi(n, 'A', 'C', 'B');
 
     return 0;
 }
