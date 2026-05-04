@@ -1,107 +1,72 @@
-#include <stdio.h>
-#include <stdlib.h>
-struct node{
+#include <iostream>
+#include <queue>
+#include <vector>
+using namespace std;
+
+struct Node {
     char data;
     int frequency;
-    struct node* left;
-    struct node* right;
+    Node* left;
+    Node* right;
+
+    Node(char d, int f) {
+        data = d;
+        frequency = f;
+        left = right = nullptr;
+    }
 };
-int size=0;
-struct node* arr[100];
-void swap(int i,int j){
-    struct node* temp=arr[i];
-    arr[i]=arr[j];
-    arr[j]=temp;
-}
-void heapifyUp(int index){
-    if(index==0){
-        return;
+
+struct compare {
+    bool operator()(Node* a, Node* b) {
+        return a->frequency > b->frequency;
     }
-    int parent=(index-1)/2;
-    while(index>0&&arr[parent]->frequency>arr[index]->frequency){
-        swap(parent,index);
-        index=parent;
-        parent=(index-1)/2;
-    }
-}
-void heapifyDown(){
-    if(size==0){
-        return;
-    }
-    int index=0;
-    while(1){
-        int left=2*index+1;
-        int right=2*index+2;
-        int smallest=index;
-        if(left<size&&arr[left]->frequency<=arr[smallest]->frequency){
-            smallest=left;
-        }
-        if(right<size&&arr[right]->frequency<=arr[smallest]->frequency){
-            smallest=right;
-        }
-        if(smallest==index){
-            break;
-        }
-        swap(index,smallest);
-        index=smallest;
-    }
-}
-void add(struct node* node){
-    arr[size]=node;
-    heapifyUp(size);
-    size++;
-}
-struct node* delete(){
-    struct node* temp=arr[0];
-    swap(0,size-1);
-    size--;
-    heapifyDown();
-    return temp;
-}
-void creatingTree(struct node* a,struct node* b){
-    struct node* newnode=(struct node*)malloc(sizeof(struct node));
-    newnode->data='$';
-    newnode->frequency=a->frequency+b->frequency;
-    newnode->left=b;
-    newnode->right=a;
-    add(newnode);
-}
-long long totalMemory = 0; 
-void printingCodes(struct node* ptr,char code[],int top){
-    if(ptr->left==NULL && ptr->right==NULL){
-        code[top]='\0';
-        long long memory = (long long)top * ptr->frequency;
+};
+
+void printCodes(Node* root, string code, long long &totalMemory) {
+    if (!root->left && !root->right) {
+        long long memory = (long long)code.length() * root->frequency;
         totalMemory += memory;
-        printf("%c:%s  (Memory used = %lld bits)\n", ptr->data, code, memory);
+        cout << root->data << ":" << code << "  (Memory used = " << memory << " bits)" << endl;
         return;
     }
-    code[top]='0';
-    if(ptr->left){
-        printingCodes(ptr->left,code,top+1);
-    }
-    code[top]='1';
-    if(ptr->right){
-        printingCodes(ptr->right,code,top+1);
-    }
+
+    if (root->left)
+        printCodes(root->left, code + "0", totalMemory);
+
+    if (root->right)
+        printCodes(root->right, code + "1", totalMemory);
 }
-int main(){
+
+int main() {
     int n;
-    printf("NO.OF ELEMENTS to be stored: ");
-    scanf("%d",&n);
-     printf("Enter character and its frequency: \n");
-    for(int i=1;i<=n;i++){
-        struct node* node=(struct node*)malloc(sizeof(struct node));
-        scanf(" %c",&(node->data));
-        scanf("%d",&(node->frequency));
-        node->left=NULL;
-        node->right=NULL;
-        add(node);
+    cin >> n;
+
+    priority_queue<Node*, vector<Node*>, compare> pq;
+
+    for (int i = 0; i < n; i++) {
+        char ch;
+        int freq;
+        cin >> ch >> freq;
+        pq.push(new Node(ch, freq));
     }
-    while(size!=1){
-        creatingTree(delete(),delete());
+
+    while (pq.size() > 1) {
+        Node* left = pq.top();
+        pq.pop();
+        Node* right = pq.top();
+        pq.pop();
+
+        Node* newNode = new Node('$', left->frequency + right->frequency);
+        newNode->left = left;
+        newNode->right = right;
+
+        pq.push(newNode);
     }
-    struct node* ptr=delete();
-    char code[20];
-    printf("The final huffman codes are: \n");
-    printingCodes(ptr,code,0);
+
+    Node* root = pq.top();
+
+    long long totalMemory = 0;
+    printCodes(root, "", totalMemory);
+
+    return 0;
 }
