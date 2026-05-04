@@ -1,35 +1,31 @@
-#include <stdio.h>
+#include <iostream>
+using namespace std;
 
-
-void linearSearch(int array[],int size,int key){
-    int f=0;
-    for(int j=0;j<size;j++){
-        if(key==array[j]){
-            printf("Element found in %d index",j);
-            f=1;
-            break;
-        }
+int linearSearch(int arr[], int n, int key) {
+    for (int i = 0; i < n; i++) {
+        if (arr[i] == key)
+            return i;
     }
-    if(f==0){
-        printf("Element not found");
-    }
+    return -1;
 }
-
 
 int main() {
     int n;
-    printf("Enter number of numbers in an array=");
-    scanf("%d",&n);
-    
-    int array[n];
-    for(int i=0;i<n;i++){
-        printf("Enter the value in array of index %d=",i);
-        scanf("%d",&array[i]);
-    }
+    cin >> n;
+
+    int arr[n];
+    for (int i = 0; i < n; i++)
+        cin >> arr[i];
 
     int key;
-    printf("Enter the key=");
-    scanf("%d",&key);
-    linearSearch(array,n,key);
+    cin >> key;
+
+    int result = linearSearch(arr, n, key);
+
+    if (result != -1)
+        cout << result;
+    else
+        cout << -1;
+
     return 0;
 }
