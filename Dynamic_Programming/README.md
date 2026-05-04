@@ -2,10 +2,10 @@
 
 This folder contains implementations of dynamic programming algorithms.
 
-## Algorithms Included
+## 📂 Files Included
 
-* 0/1 Knapsack
+* knapsack_01.cpp — 0/1 Knapsack problem
 
-## Description
+## 📌 Description
 
-Dynamic Programming solves problems by breaking them into smaller subproblems and storing results to avoid recomputation.
+Dynamic Programming is used to solve problems by breaking them into overlapping subproblems and storing results to avoid repeated computations.
