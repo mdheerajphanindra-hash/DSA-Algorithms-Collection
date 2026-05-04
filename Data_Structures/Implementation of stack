@@ -1,0 +1,144 @@
+/*Implementation of stack 1)Array 2)Linked list*/
+
+//Implementation of stack using Array
+
+ 
+/*#include <stdio.h>
+#define MAX 100
+
+int top = -1;
+
+int isFull() {
+    return (top == MAX - 1);
+}
+
+int isEmpty() {
+    return (top == -1);
+}
+
+void push(int s[], int val) {
+    if (isFull()) {
+        printf("Stack is full!\n");
+        return;
+    }
+    s[++top] = val;
+    printf("%d pushed to stack\n", val);
+}
+
+int pop(int s[]) {
+    if (isEmpty()) {
+        printf("Stack is empty!\n");
+        return -1;
+    }
+    printf("Removed element is %d\n", s[top]);
+    return s[top--];
+}
+
+int peek(int s[]) {
+    if (isEmpty()) {
+        printf("Stack is empty!\n");
+        return -1;
+    }
+    return s[top];
+}
+
+void display(int s[]) {
+    if (isEmpty()) {
+        printf("Stack is empty!\n");
+        return;
+    }
+    printf("Stack elements are:\n");
+    for (int i = top; i >= 0; i--) {
+        printf("%d ", s[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    int stack[MAX];
+    push(stack, 10);
+    push(stack, 20);
+    push(stack, 30);
+    display(stack);
+    printf("Top element is %d\n", peek(stack));
+    pop(stack);
+    display(stack);
+    return 0;
+}*/
+
+//Implementation of stack Linked list
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+struct Node* top = NULL;
+
+int isEmpty() {
+    return (top == NULL);
+}
+
+void push(int val) {
+    struct Node* newNode = (struct Node*) malloc(sizeof(struct Node));
+    if (!newNode) {
+        printf("Heap overflow!\n");
+        return;
+    }
+    newNode->data = val;
+    newNode->next = top;
+    top = newNode;
+    printf("%d pushed to stack\n", val);
+}
+
+int pop() {
+    if (isEmpty()) {
+        printf("Stack is empty!\n");
+        return -1;
+    }
+    struct Node* temp = top;
+    int popped = temp->data;
+    top = top->next;
+    free(temp);
+    printf("Removed element is %d\n", popped);
+    return popped;
+}
+
+int peek() {
+    if (isEmpty()) {
+        printf("Stack is empty!\n");
+        return -1;
+    }
+    return top->data;
+}
+
+void display() {
+    if (isEmpty()) {
+        printf("Stack is empty!\n");
+        return;
+    }
+    struct Node* temp = top;
+    printf("Stack elements are:\n");
+    while (temp != NULL) {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+    printf("\n");
+}
+
+int main() {
+    push(5);
+    push(15);
+    push(25);
+    push(35);
+    display();
+    printf("Top element is %d\n", peek());
+    pop();
+    display();
+    push(45);
+    display();
+    return 0;
+}
