@@ -4,15 +4,31 @@ This repository contains well-structured implementations of core Data Structures
 
 ## 📂 Topics Covered
 
+* Data Structures
 * Searching Algorithms
 * Sorting Algorithms
 * Greedy Algorithms
 * Graph Algorithms
 * Dynamic Programming
+* Divide and Conquer
+* Recursion
+* Mathematical Algorithms
 
 ## 🛠 Language
 
 * C++
+
+## 📁 Folder Structure
+
+* Data_Structures
+* Searching
+* Sorting
+* Greedy
+* Graphs
+* Dynamic_Programming
+* Divide_and_Conquer
+* Recursion
+* Math
 
 ## 🚀 How to Run
 
@@ -23,7 +39,7 @@ g++ filename.cpp -o output
 
 ## 🎯 Purpose
 
-This repository organizes all lab work and practice problems in a clean and structured way.
+This repository organizes lab work and practice problems into a clean and structured format for easy understanding and revision.
 
 ## 👨‍💻 Author
 
