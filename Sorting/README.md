@@ -1,17 +1,17 @@
 # 🔃 Sorting Algorithms
 
-This folder contains implementations of common sorting techniques.
+This folder contains implementations of sorting algorithms.
 
-## Algorithms Included
+## 📂 Files Included
 
-* Bubble Sort
-* Selection Sort
-* Merge Sort
-* Quick Sort
-* Bucket Sort
+* bubble_sort.cpp — Bubble Sort
+* selection_sort.cpp — Selection Sort
+* merge_sort.cpp — Merge Sort
+* quick_sort.cpp — Quick Sort
+* bucket_sort.cpp — Bucket Sort
 
-## Description
+## 📌 Description
 
-Sorting algorithms arrange elements in a specific order (ascending or descending).
+Sorting algorithms are used to arrange elements in a specific order (ascending or descending).
 
 Different algorithms are used based on efficiency and use case.
