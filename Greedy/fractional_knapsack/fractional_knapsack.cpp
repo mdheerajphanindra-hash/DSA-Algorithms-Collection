@@ -37,15 +37,21 @@ double fractionalKnapsack(int cap, vector<Item> &v) {
 int main() {
     int n;
     cin >> n;
+
     vector<Item> items;
+
     for (int i = 0; i < n; i++) {
         int w, p;
         cin >> w >> p;
         items.push_back(Item(w, p));
     }
+
     int cap;
     cin >> cap;
+
     double ans = fractionalKnapsack(cap, items);
-    cout << ans << endl;
+
+    cout << ans;
+
     return 0;
 }
