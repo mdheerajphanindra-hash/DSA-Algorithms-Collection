@@ -1,74 +1,39 @@
-//Bucket Sort Technique
-#include <stdio.h>
-#include <stdlib.h>
-struct Node {
-    float data;
-    struct Node* next;
-};
-struct Node* insertSorted(struct Node* head, float value) {
-    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
-    newNode->data = value;
-    newNode->next = NULL;
-
-    if (head == NULL || value < head->data) {
-        newNode->next = head;
-        return newNode;
-    }
-    struct Node* current = head;
-    while (current->next != NULL && current->next->data < value) {
-        current = current->next;
-    }
-    newNode->next = current->next;
-    current->next = newNode;
-    return head;
-}
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
 
 void bucketSort(float arr[], int n) {
-    struct Node** buckets = (struct Node**)malloc(n * sizeof(struct Node*));
-    for (int i = 0; i < n; i++)
-        buckets[i] = NULL;
+    vector<vector<float>> buckets(n);
 
     for (int i = 0; i < n; i++) {
-        int bucketIndex = n * arr[i];
-        buckets[bucketIndex] = insertSorted(buckets[bucketIndex], arr[i]);
+        int index = n * arr[i];
+        buckets[index].push_back(arr[i]);
     }
 
-    int index = 0;
+    for (int i = 0; i < n; i++)
+        sort(buckets[i].begin(), buckets[i].end());
+
+    int k = 0;
     for (int i = 0; i < n; i++) {
-        struct Node* current = buckets[i];
-        while (current != NULL) {
-            arr[index++] = current->data;
-            struct Node* temp = current;
-            current = current->next;
-            free(temp);
+        for (float x : buckets[i]) {
+            arr[k++] = x;
         }
     }
-    free(buckets);
-}
-
-void printArray(float arr[], int n) {
-    for (int i = 0; i < n; i++)
-        printf("%.2f ", arr[i]);
-    printf("\n");
 }
 
 int main() {
     int n;
-    printf("Enter number of elements: ");
-    scanf("%d", &n);
+    cin >> n;
 
     float arr[n];
-    printf("Enter %d elements (values between 0 and 1): ", n);
     for (int i = 0; i < n; i++)
-        scanf("%f", &arr[i]);
-
-    printf("Original array:\n");
-    printArray(arr, n);
+        cin >> arr[i];
 
     bucketSort(arr, n);
 
-    printf("Sorted array:\n");
-    printArray(arr, n);
+    for (int i = 0; i < n; i++)
+        cout << arr[i] << " ";
 
     return 0;
 }
