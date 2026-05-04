@@ -1,0 +1,141 @@
+//Create a Binary Search Tree and perform the insertion, deletion operations.
+
+#include<stdio.h>
+#include<stdlib.h>
+
+
+
+struct node{
+    struct node *lchild;
+    int data;
+    struct node *rchild;
+};
+struct node *root=NULL;
+
+struct node * create_node(int n){
+    struct node * new_node=(struct node *)malloc(sizeof(struct node));
+    new_node->data=n;
+    new_node->lchild=NULL;
+    new_node->rchild=NULL;
+    return new_node;
+}
+
+struct node* min_val(struct node* root){
+    struct node* current = root;
+    while(current && current->lchild != NULL){
+        current = current->lchild;
+    }
+    return current;
+}
+
+
+struct node *delete_node(struct node *root,int key){
+    if(root==NULL){
+        return NULL;
+    }
+    else if(key<root->data){
+        root->lchild =delete_node(root->lchild, key);
+    }
+    else if(key>root->data){
+        root->rchild =delete_node(root->rchild,key);
+    }
+    else{
+        printf("Deleting the number=%d",root->data);
+        if(root->lchild==NULL){
+            struct node* temp=root->rchild;
+            free(root);
+            return temp;
+        }
+        if(root->rchild==NULL){
+            struct node* temp=root->lchild;
+            free(root);
+            return temp;
+        }
+        struct node* temp=min_val(root->rchild);
+        root->data=temp->data;
+        root->rchild=delete_node(root->rchild, temp->data);
+    }
+    return root;
+}
+
+
+
+
+
+struct node* search_bst(struct node* root,int n){
+    if(root==NULL){
+        root=create_node(n);
+        return root;
+    }
+    else{
+        struct node *current=root;
+        struct node *parent=NULL;
+        while(1){
+                if(n<current->data){
+                    parent=current;
+                    current=current->lchild;
+                    if(current==NULL){
+                        parent->lchild=create_node(n);
+                        return root;
+                    }
+                }
+                else{
+                    parent=current;
+                    current=current->rchild;
+                    if(current==NULL){
+                        parent->rchild=create_node(n);
+                        return root;
+                    }
+                }
+        }
+    }
+}
+
+void display(struct node *root){
+    if(root==NULL){
+        return;
+    }
+    else{
+        display(root->lchild);
+        printf("%d ",root->data);
+        display(root->rchild);
+    }
+}
+
+
+
+int main(){
+    printf("1.Creat or Add value\n2.Print\n3.Delete number\n");
+    int c;
+    printf("Chode an option=");
+    scanf("%d",&c);
+    switch(c){
+        case 1:{
+            int n;
+            printf("Enter the number you want to add=");
+            scanf("%d",&n);
+            root=search_bst(root,n);
+            break;
+        }
+        case 2:{
+                printf("Inorder traversal: ");
+                display(root);
+                printf("\n");
+                break;
+            }
+            case 3:{
+                int key;
+                printf("Enter the number you want to delete = ");
+                scanf("%d",&key);
+                root=delete_node(root,key);
+                break;
+            }
+            case 4:{
+                exit(0);
+            }
+            default:{
+                printf("Invalid choice\n");
+            }
+    }
+    return 0;
+}
