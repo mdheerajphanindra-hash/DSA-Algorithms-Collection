@@ -1,17 +1,19 @@
-#include <stdio.h>
-#include <limits.h>
+#include <iostream>
+#include <climits>
+using namespace std;
 
-int max(int a, int b) {
+int maxVal(int a, int b) {
     return (a > b) ? a : b;
 }
 
 int max3(int a, int b, int c) {
-    return max(max(a, b), c);
+    return maxVal(maxVal(a, b), c);
 }
 
 int maxCrossingSum(int arr[], int low, int mid, int high) {
     int sum = 0;
     int left_sum = INT_MIN;
+
     for (int i = mid; i >= low; i--) {
         sum += arr[i];
         if (sum > left_sum)
@@ -20,6 +22,7 @@ int maxCrossingSum(int arr[], int low, int mid, int high) {
 
     sum = 0;
     int right_sum = INT_MIN;
+
     for (int i = mid + 1; i <= high; i++) {
         sum += arr[i];
         if (sum > right_sum)
@@ -44,16 +47,15 @@ int maxSubArray(int arr[], int low, int high) {
 
 int main() {
     int n;
-    printf("Enter number of elements: ");
-    scanf("%d", &n);
+    cin >> n;
 
     int arr[n];
-    for (int i = 0; i < n; i++) {
-        scanf("%d", &arr[i]);
-    }
+    for (int i = 0; i < n; i++)
+        cin >> arr[i];
 
     int max_sum = maxSubArray(arr, 0, n - 1);
-    printf("Maximum Subarray Sum = %d\n", max_sum);
+
+    cout << max_sum;
 
     return 0;
 }
