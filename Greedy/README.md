@@ -2,14 +2,12 @@
 
 This folder contains implementations of greedy algorithms.
 
-## Algorithms Included
+## 📂 Files Included
 
-* Fractional Knapsack
-* Huffman Coding
-* Knapsack (Minimum Weight Strategy)
+* fractional_knapsack.cpp — Fractional Knapsack problem
+* huffman.cpp — Huffman Coding
+* knapsack_by_min_weight.cpp — Knapsack using minimum weight strategy
 
-## Description
+## 📌 Description
 
-Greedy algorithms make the best choice at each step to achieve an optimal solution.
-
-They are efficient and used in optimization problems.
+Greedy algorithms make the best possible choice at each step to achieve an optimal or near-optimal solution.
