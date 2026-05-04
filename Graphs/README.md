@@ -2,13 +2,13 @@
 
 This folder contains implementations of graph algorithms.
 
-## Algorithms Included
+## 📂 Files Included
 
-* Dijkstra's Algorithm
-* Floyd Warshall Algorithm
-* Prim's Minimum Spanning Tree
-* Kruskal's Minimum Spanning Tree
+* dijkstra.cpp — Shortest path algorithm
+* floyd_warshall.cpp — All-pairs shortest path
+* prim_mst.cpp — Minimum Spanning Tree (Prim’s Algorithm)
+* kruskal_mst.cpp — Minimum Spanning Tree (Kruskal’s Algorithm)
 
-## Description
+## 📌 Description
 
-Graph algorithms are used to solve problems related to networks, paths, and connectivity.
+Graph algorithms are used to solve problems related to networks, paths, and connectivity between nodes.
